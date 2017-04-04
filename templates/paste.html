@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <table id="template" class="hide">
+        <tr class="comment">
+            <td class="lineno"></td>
+            <td class="line">
+                <form method="POST" action="/{{ paste.id }}">
+
+                    {{ comment_form.contents(rows=5, cols=100) }}
+                    {{ comment_form.line() }}
+
+                    <input type="submit" name="submit" value="Submit">
+                </form>
+            </td>
+        </tr>
+    </table>
+    {{ paste|highlight }}
+
+    {% for comment in paste.comments %}
+        {{comment.contents}}
+    {% endfor %}
+
+{% endblock %}

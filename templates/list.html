@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <ul>
+        {% for paste in pastes %}
+        <li>
+            <a href="{{ url_for('paste.show_paste', paste_id=paste.id) }}">
+                {{ paste.id }} ({{ paste.created_on }})
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

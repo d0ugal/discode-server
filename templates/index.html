@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+    <form method="POST" action=".">
+
+        {% if paste_form.contents.errors %}
+            {% for error in paste_form.contents.errors %}
+                {{ error }}<br/>
+            {% endfor %}</ul>
+        {% endif %}
+        {% if paste_form.language.errors %}
+            {% for error in paste_form.language.errors %}
+                {{ error }}<br/>
+            {% endfor %}</ul>
+        {% endif %}
+
+        {{ paste_form.contents(rows=30, cols=100) }}
+
+        {{ paste_form.language() }}
+
+
+        <input type="submit" name="submit" value="Submit">
+    </form>
+
+    {{ paste_form.content }}
+{% endblock %}

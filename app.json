@@ -1,0 +1,12 @@
+{
+  "name": "Discode on Heroku",
+  "description": "",
+  "repository": "https://github.com/d0ugal/discode",
+  "keywords": ["codereview", "pastebin"],
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "as": "postgres"
+    }
+  ]
+}
