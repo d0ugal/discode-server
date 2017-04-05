@@ -4,7 +4,7 @@ setuptools.setup(
     name="discode-server",
     version="0.0.1",
     url="https://github.com/d0ugal/discode-server",
-    license="MIT",
+    license="BSD",
     description="Quick code review",
     long_description="TODO",
     author="Dougal Matthews",
