@@ -41,6 +41,9 @@ td.lineno:hover, td.line:hover {
     background-color: #eee;
 }
 
+textarea {
+}
+
 .comments {
     border: 1px solid #ddd;
 }

@@ -2,7 +2,8 @@
 
 {% block body %}
 
-    <form method="POST" action=".">
+    <form method="POST" action="." class="pure-form  pure-form-stacked">
+      <fieldset>
 
         {% if paste_form.contents.errors %}
             {% for error in paste_form.contents.errors %}
@@ -15,12 +16,18 @@
             {% endfor %}</ul>
         {% endif %}
 
+        <label for="contents">
+            What would you like to discuss?
+        </label>
         {{ paste_form.contents(rows=30, cols=100) }}
 
+        <label for="language">
+            Pick the language for syntax highlighting, or we will take a guess.
+        </label>
         {{ paste_form.language() }}
 
-
-        <input type="submit" name="submit" value="Submit">
+        <input type="submit" class="pure-button pure-button-primary" value="Submit">
+      </fieldset>
     </form>
 
     {{ paste_form.content }}
