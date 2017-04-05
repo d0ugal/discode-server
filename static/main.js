@@ -82,12 +82,10 @@ $(function(){
 
     $(window).on("focus", function () {
       isActive = true;
-      console.log(isActive);
     });
 
     $(window).on("blur", function () {
       isActive = false;
-      console.log(isActive);
     });
 
     if (paste_id && !paste_id.startsWith("_")){
