@@ -78,6 +78,17 @@ $(function(){
     var ws = protocol + '://' + document.domain + ':' + location.port + '/_notify';
 
     var seen = [];
+    var isActive;
+
+    $(window).on("focus", function () {
+      isActive = true;
+      console.log(isActive);
+    });
+
+    $(window).on("blur", function () {
+      isActive = false;
+      console.log(isActive);
+    });
 
     if (paste_id && !paste_id.startsWith("_")){
         var notifySocket = new ReconnectingWebSocket(ws);
@@ -95,7 +106,7 @@ $(function(){
                 $("#L" + data.lineno).closest('tr').after($(data.html));
             }
 
-            new Notification("New comment on paste " + paste_id);
+            if (!isActive) new Notification("New comment on paste " + paste_id);
         }
     }
 
