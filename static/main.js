@@ -77,18 +77,25 @@ $(function(){
     var protocol = window.location.protocol == "https:" ? "wss" : "ws";
     var ws = protocol + '://' + document.domain + ':' + location.port + '/_notify';
 
+    var seen = [];
+
     if (paste_id && !paste_id.startsWith("_")){
         var notifySocket = new ReconnectingWebSocket(ws);
         notifySocket.onmessage = function (event) {
             var data = JSON.parse(event.data);
             if (data.paste_id != paste_id) return;
+
+            if (seen.indexOf(data.comment_id) > -1) return;
+            seen.push(data.comment_id);
+
             var col_row = $("#C" + data.lineno);
-            new Notification("New comment on paste " + paste_id);
             if(col_row.length){
                 col_row.replaceWith($(data.html));
             } else {
                 $("#L" + data.lineno).closest('tr').after($(data.html));
             }
+
+            new Notification("New comment on paste " + paste_id);
         }
     }
 

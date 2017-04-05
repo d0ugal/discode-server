@@ -35,13 +35,14 @@ async def feed(request, ws):
                     continue
                 notified.add(fingerprint)
 
-                paste_id, lineno, _ = msg.payload.split(',')
+                paste_id, lineno, comment_id = msg.payload.split(',')
                 paste = await db.get_paste(conn, int(paste_id))
                 html = fragments.comment_row(lineno, paste.comments[int(lineno)])
                 data = json.dumps({
                     "html": html,
                     "lineno": lineno,
                     "paste_id": paste.id,
+                    "comment_id": comment_id,
                 })
                 await ws.send(data)
     finally:
