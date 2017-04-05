@@ -1,2 +1,2 @@
-web: python -m discode
+web: discode-server
 release: alembic upgrade head
