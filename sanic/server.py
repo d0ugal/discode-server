@@ -4,11 +4,17 @@ import traceback
 import warnings
 from functools import partial
 from inspect import isawaitable
-from multiprocessing import Process, Event
-from os import set_inheritable
-from signal import SIGTERM, SIGINT
-from signal import signal as signal_func
-from socket import socket, SOL_SOCKET, SO_REUSEADDR
+from multiprocessing import Process
+from signal import (
+    SIGTERM, SIGINT,
+    signal as signal_func,
+    Signals
+)
+from socket import (
+    socket,
+    SOL_SOCKET,
+    SO_REUSEADDR,
+)
 from time import time
 
 from httptools import HttpRequestParser
@@ -421,7 +427,7 @@ def serve(host, port, request_handler, error_handler, before_start=None,
         loop.close()
 
 
-def serve_multiple(server_settings, workers, stop_event=None):
+def serve_multiple(server_settings, workers):
     """Start multiple server processes simultaneously.  Stop on interrupt
     and terminate signals, and drain connections when complete.
 
@@ -443,16 +449,17 @@ def serve_multiple(server_settings, workers, stop_event=None):
         sock = socket()
         sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
         sock.bind((server_settings['host'], server_settings['port']))
-        set_inheritable(sock.fileno(), True)
+        sock.set_inheritable(True)
         server_settings['sock'] = sock
         server_settings['host'] = None
         server_settings['port'] = None
 
-    if stop_event is None:
-        stop_event = Event()
+    def sig_handler(signal, frame):
+        log.info("Received signal {}. Shutting down.".format(
+            Signals(signal).name))
 
-    signal_func(SIGINT, lambda s, f: stop_event.set())
-    signal_func(SIGTERM, lambda s, f: stop_event.set())
+    signal_func(SIGINT, lambda s, f: sig_handler(s, f))
+    signal_func(SIGTERM, lambda s, f: sig_handler(s, f))
 
     processes = []
     for _ in range(workers):

@@ -1,5 +1,6 @@
 from mimetypes import guess_type
 from os import path
+
 try:
     from ujson import dumps as json_dumps
 except:
@@ -132,8 +133,8 @@ class StreamingHTTPResponse(BaseHTTPResponse):
 
     async def stream(
             self, version="1.1", keep_alive=False, keep_alive_timeout=None):
-        """Streams headers, runs the `streaming_fn` callback that writes content
-        to the response body, then finalizes the response body.
+        """Streams headers, runs the `streaming_fn` callback that writes
+        content to the response body, then finalizes the response body.
         """
         headers = self.get_headers(
             version, keep_alive=keep_alive,
@@ -167,12 +168,12 @@ class StreamingHTTPResponse(BaseHTTPResponse):
         return (b'HTTP/%b %d %b\r\n'
                 b'%b'
                 b'%b\r\n') % (
-            version.encode(),
-            self.status,
-            status,
-            timeout_header,
-            headers
-        )
+                   version.encode(),
+                   self.status,
+                   status,
+                   timeout_header,
+                   headers
+               )
 
 
 class HTTPResponse(BaseHTTPResponse):
@@ -216,14 +217,14 @@ class HTTPResponse(BaseHTTPResponse):
                 b'%b'
                 b'%b\r\n'
                 b'%b') % (
-            version.encode(),
-            self.status,
-            status,
-            b'keep-alive' if keep_alive else b'close',
-            timeout_header,
-            headers,
-            self.body
-        )
+                   version.encode(),
+                   self.status,
+                   status,
+                   b'keep-alive' if keep_alive else b'close',
+                   timeout_header,
+                   headers,
+                   self.body
+               )
 
     @property
     def cookies(self):
@@ -331,7 +332,11 @@ def stream(
     :param headers: Custom Headers.
     """
     return StreamingHTTPResponse(
-        streaming_fn, headers=headers, content_type=content_type, status=status)
+        streaming_fn,
+        headers=headers,
+        content_type=content_type,
+        status=status
+    )
 
 
 def redirect(to, headers=None, status=302,
