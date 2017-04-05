@@ -26,7 +26,8 @@ paste = sa.Table(
 comment = sa.Table(
     'comments', meta,
     sa.Column('id', sa.Integer, primary_key=True),
-    sa.Column('paste_id', sa.Integer, sa.ForeignKey("pastes.id"), nullable=False),
+    sa.Column('paste_id', sa.Integer, sa.ForeignKey("pastes.id"),
+              nullable=False),
     sa.Column('line', sa.Integer, nullable=False),
     sa.Column('contents', sa.Text(), nullable=False),
     sa.Column('created_on', sa.DateTime, default=datetime.datetime.utcnow),

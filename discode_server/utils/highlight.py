@@ -17,7 +17,8 @@ class CodeHtmlFormatter(HtmlFormatter):
             if not t:
                 continue
             lineno += 1
-            yield t, f'<tr><td class="lineno" id="L{lineno}" data-line-number="{lineno}"></td>'
+            yield t, (f'<tr><td class="lineno" id="L{lineno}" '
+                      f'data-line-number="{lineno}"></td>')
             yield t, '<td class="line"><pre>'
             yield t, line
             yield t, '</pre></td></tr>'
@@ -38,8 +39,10 @@ class MistralLexer(lexer.RegexLexer):
         "root": [
             (r'^(\s)*(workflows|tasks|input)(\s)*:', token.Keyword),
             (r'^(\s)*(version|name|description)(\s)*:', token.Keyword),
-            (r'^(\s)*(publish|timeout|retry|with\-items)(\s)*:', token.Keyword),
-            (r'^(\s)*(on\-success|on\-error|on\-complete)(\s)*:', token.Keyword),
+            (r'^(\s)*(publish|timeout|retry|with\-items)(\s)*:',
+                token.Keyword),
+            (r'^(\s)*(on\-success|on\-error|on\-complete)(\s)*:',
+                token.Keyword),
             (r'^(\s)*(action|workflow)(\s)*:', token.Keyword, 'call'),
             (r'(\-|\:)(\s)*(fail|succeed|pause)(\s)+', token.Operator.Word),
             (r'<%', token.Name.Entity, 'expression'),
@@ -50,7 +53,8 @@ class MistralLexer(lexer.RegexLexer):
         ],
         "expression": [
             (r'\$', token.Operator),
-            (r'\s(json_pp|task|tasks|execution|env|uuid)(?!\w)', token.Name.Builtin),
+            (r'\s(json_pp|task|tasks|execution|env|uuid)(?!\w)',
+                token.Name.Builtin),
             lexer.include("generic"),
             (r'%>', token.Name.Entity, '#pop'),
             (r'}\\}', token.Name.Entity, '#pop'),
@@ -109,5 +113,6 @@ def guess(code, lexer):
 
 def get_lexer_names():
     lexer_specs = lexers.get_all_lexers()
-    names = [(l[1][0], l[0]) for l in sorted(lexer_specs, key=lambda s: s[0].lower())]
+    names = [(l[1][0], l[0]) for l in
+             sorted(lexer_specs, key=lambda s: s[0].lower())]
     return names
