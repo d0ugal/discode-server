@@ -4,13 +4,12 @@ from pygments import lexer
 from pygments import lexers
 from pygments import token
 
-from discode_server import fragments
-
 
 class CodeHtmlFormatter(HtmlFormatter):
 
     # Private they said? LOL
     def _wrap_tablelinenos(self, inner):
+        from discode_server import fragments
         yield 0, '<table class="codehilite">'
         lineno = 0
         for t, line in inner:

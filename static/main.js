@@ -48,7 +48,7 @@ $(function(){
 
         var tr = $(ev.target.closest('tr'));
         var next = $(tr).next();
-        if (next.hasClass("comment")){
+        if (next.hasClass("commentrow")){
             next.remove();
             return;
         }

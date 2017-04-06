@@ -1,27 +1,16 @@
 import asyncio
-import pathlib
 
 from sanic import exceptions
 from sanic import response
-import jinja2
 import sanic
 
 from discode_server.utils import baseconv
-from discode_server.utils import highlight
 from discode_server.utils import limiter
+from discode_server.utils import templates
 from discode_server import db
 from discode_server import forms
 
 bp = sanic.Blueprint('paste')
-
-env = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(str(pathlib.Path('.') / "templates"))
-)
-env.filters['highlight'] = highlight.hl
-
-
-def _render(template, **kwargs):
-    return response.html(env.get_template(template).render(**kwargs))
 
 
 @bp.listener('after_server_start')
@@ -35,7 +24,7 @@ async def delete_expired(app, loop):
 @bp.get('/')
 async def index(request):
     paste_form = forms.NewPasteForm()
-    return _render('index.html', paste_form=paste_form)
+    return templates.render('index.html', paste_form=paste_form)
 
 
 @bp.post('/')
@@ -53,7 +42,7 @@ async def create_paste(request):
 
     if not paste_form.validate():
         if request.form:
-            return _render('index.html', paste_form=paste_form)
+            return templates.render('index.html', paste_form=paste_form)
         else:
             return response.json(paste_form.errors)
 
@@ -79,7 +68,8 @@ async def show_paste(request, paste_id):
     paste_id = baseconv.base62.to_decimal(paste_id)
     async with request.app.config.DB.acquire() as conn:
         paste = await db.get_paste(conn, paste_id)
-    return _render('paste.html', paste=paste, comment_form=comment_form)
+    return templates.render('paste.html', paste=paste,
+                            comment_form=comment_form)
 
 
 @bp.post('/<paste_id:[A-Za-z0-9]+>')
@@ -122,4 +112,5 @@ async def show_raw(request, paste_id):
 async def list_pastes(request):
     async with request.app.config.DB.acquire() as conn:
         pastes = await db.get_pastes(conn)
-    return _render('list.html', pastes=pastes, url_for=request.app.url_for)
+    return templates.render('list.html', pastes=pastes,
+                            url_for=request.app.url_for)

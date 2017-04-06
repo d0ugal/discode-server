@@ -2,9 +2,9 @@
 
 {% block body %}
     <table id="template" class="hide">
-        <tr class="comment">
+        <tr class="commentrow">
             <td class="commentno"></td>
-            <td class="line comment">
+            <td class="commentline">
                 <form method="POST" action="/{{ paste.id }}" class="pure-form pure-form-stacked">
                     {{ comment_form.contents(rows=5, cols=80) }}
                     {{ comment_form.line() }}

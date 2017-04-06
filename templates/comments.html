@@ -1,0 +1,9 @@
+<tr id="C{{ lineno }}">
+  <td colspan="2" class="comments">
+    {% for comment in comments %}
+    <div class="comment">
+      {{ comment|commonmark }}
+    </div>
+    {% endfor %}
+  </td>
+</tr>
