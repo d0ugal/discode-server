@@ -3,19 +3,21 @@
 {% block body %}
     <table id="template" class="hide">
         <tr class="comment">
-            <td class="lineno"></td>
-            <td class="line">
-                <form method="POST" action="/{{ paste.id }}">
-
-                    {{ comment_form.contents(rows=5, cols=100) }}
+            <td class="commentno"></td>
+            <td class="line comment">
+                <form method="POST" action="/{{ paste.id }}" class="pure-form pure-form-stacked">
+                    {{ comment_form.contents(rows=5, cols=80) }}
                     {{ comment_form.line() }}
 
-                    <input type="submit" name="submit" value="Submit">
+                    <input type="submit"  class="pure-button pure-button-primary" value="Submit">
                 </form>
             </td>
         </tr>
     </table>
+
+    <div class="paste-wrapper">
     {{ paste|highlight }}
+    </div>
 
     {% for comment in paste.comments %}
         {{comment.contents}}

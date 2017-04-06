@@ -7,6 +7,10 @@ p {
     padding: 0.5em;
 }
 
+.paste-wrapper{
+    padding: 1em;
+}
+
 .lineno *, .line * {
     font-family: 'Source Code Pro',monospace
 }
