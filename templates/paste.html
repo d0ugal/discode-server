@@ -15,9 +15,7 @@
         </tr>
     </table>
 
-    <div class="paste-wrapper">
     {{ paste|highlight }}
-    </div>
 
     {% for comment in paste.comments %}
         {{comment.contents}}
