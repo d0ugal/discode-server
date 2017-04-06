@@ -65,7 +65,7 @@ async def create_paste(request):
 async def show_paste(request, paste_id):
     comment_form = forms.CommentForm()
     paste_id = paste_id.upper()
-    paste_id = baseconv.base62.to_decimal(paste_id)
+    paste_id = baseconv.base36.to_decimal(paste_id)
     async with request.app.config.DB.acquire() as conn:
         paste = await db.get_paste(conn, paste_id)
     return templates.render('paste.html', paste=paste,
@@ -79,7 +79,7 @@ async def create_comment(request, paste_id):
 
     url_id = paste_id
     paste_id = paste_id.upper()
-    paste_id = baseconv.base62.to_decimal(paste_id)
+    paste_id = baseconv.base36.to_decimal(paste_id)
     comment_form = forms.CommentForm(request.form)
 
     if not comment_form.validate():
@@ -102,7 +102,7 @@ async def create_comment(request, paste_id):
 @bp.get('/<paste_id:[A-Za-z0-9]+>/raw')
 async def show_raw(request, paste_id):
     paste_id = paste_id.upper()
-    paste_id = baseconv.base62.to_decimal(paste_id)
+    paste_id = baseconv.base36.to_decimal(paste_id)
     async with request.app.config.DB.acquire() as conn:
         paste = await db.get_paste(conn, paste_id)
     return response.text(paste.contents)

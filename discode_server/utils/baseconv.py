@@ -46,4 +46,4 @@ class BaseConverter(object):
         return decoded
 
 
-base62 = BaseConverter(string.digits + string.ascii_uppercase)
+base36 = BaseConverter(string.digits + string.ascii_uppercase)

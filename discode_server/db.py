@@ -46,7 +46,7 @@ class Paste:
 
     @property
     def id(self):
-        return baseconv.base62.from_decimal(self._record.id)
+        return baseconv.base36.from_decimal(self._record.id)
 
     @property
     def decimal_id(self):
