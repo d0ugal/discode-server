@@ -2,7 +2,7 @@
   <td colspan="2" class="comments">
     {% for comment in comments %}
     <div class="comment">
-      {{ comment|commonmark }}
+      {{ comment|commonmark|bleach }}
     </div>
     {% endfor %}
   </td>

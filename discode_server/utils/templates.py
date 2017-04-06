@@ -3,6 +3,7 @@ import pathlib
 
 from sanic import response
 import CommonMark
+import bleach
 import jinja2
 
 from discode_server.utils import highlight
@@ -21,6 +22,18 @@ def nl2br(eval_ctx, value):
     return result
 
 
+def _bleach(contents):
+    markdown_tags = [
+        "h1", "h2", "h3", "h4", "h5", "h6",
+        "b", "i", "strong", "em", "tt",
+        "p", "br",
+        "span", "div", "blockquote", "code", "hr", "pre",
+        "ul", "ol", "li", "dd", "dt",
+        "img",
+        "a",
+    ]
+    return bleach.clean(contents, tags=markdown_tags)
+
 def jinja_env():
     global _env
 
@@ -34,6 +47,7 @@ def jinja_env():
     _env.filters['highlight'] = highlight.hl
     _env.filters['nl2br'] = nl2br
     _env.filters['commonmark'] = CommonMark.commonmark
+    _env.filters['bleach'] = _bleach
     return _env
 
 
