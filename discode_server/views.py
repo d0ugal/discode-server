@@ -28,7 +28,7 @@ async def index(request):
 
 
 @bp.post('/')
-@limiter.limiter("12/minute")
+@limiter.limiter("6/minute")
 async def create_paste(request):
 
     if request.form:

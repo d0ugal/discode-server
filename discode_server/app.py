@@ -24,11 +24,6 @@ def create_app():
     app.middleware('request')(session.add_to_request)
     app.middleware('response')(session.save_session)
 
-    @app.exception(Exception)
-    def errors(request, exception):
-        traceback.print_exc(file=sys.stdout)
-        return response.text(":-(", status=500)
-
     @app.listener('before_server_start')
     async def setup_connection(app, loop):
 
