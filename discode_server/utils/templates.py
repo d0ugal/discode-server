@@ -34,6 +34,7 @@ def _bleach(contents):
     ]
     return bleach.clean(contents, tags=markdown_tags)
 
+
 def jinja_env():
     global _env
 

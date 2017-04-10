@@ -1,9 +1,6 @@
 import os
-import sys
-import traceback
 
 import sanic
-from sanic import response
 
 from discode_server import db
 from discode_server import notify
@@ -44,14 +41,14 @@ def run():
     port = int(os.environ.get('PORT', 8000))
     app = create_app()
 
+    print("-=- ENV -=-")
+    for key, val in os.environ.items():
+        print(f"{key}={val!r}")
+
+    print("-=- CONFIG -=-")
     for key, val in app.config.items():
         if key == 'LOGO':
             continue
-        print(f"{key}={val!r}")
-
-    print("-=- "*10)
-
-    for key, val in os.environ.items():
         print(f"{key}={val!r}")
 
     app.run(

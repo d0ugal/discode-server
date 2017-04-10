@@ -1,4 +1,3 @@
-import asyncio
 import json
 
 from discode_server import db
@@ -20,12 +19,8 @@ async def feed(request, ws):
                 return
 
             async with request.app.config.DB.acquire() as conn:
-                await asyncio.wait_for(conn.execute(f"LISTEN channel"), 0.1)
-                try:
-                    msg = await asyncio.wait_for(
-                            conn.connection.notifies.get(), 0.1)
-                except asyncio.TimeoutError:
-                    continue
+                await conn.execute(f"LISTEN channel")
+                msg = await conn.connection.notifies.get()
 
                 if not ws.open:
                     return
