@@ -3,7 +3,8 @@ from urllib import parse
 
 DEBUG = False
 
-DATABASE_SA = os.environ.get('HEROKU_POSTGRESQL_CHARCOAL_URL')
+
+DATABASE_SA = os.environ.get('HEROKU_POSTGRESQL_CHARCOAL_URL_PGBOUNCER')
 
 bits = parse.urlparse(DATABASE_SA)
 
