@@ -17,4 +17,4 @@ DATABASE = {
 
 # 8 worker * 10 connections = 80 connectionso
 # pgbouncer is setup for 100, so we have a few extra to play with
-WORKER_COUNT = 1
+WORKER_COUNT = 8
