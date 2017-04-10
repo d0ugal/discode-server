@@ -49,6 +49,11 @@ def run():
             continue
         print(f"{key}={val!r}")
 
+    print("-=- "*10)
+
+    for key, val in os.environ.items():
+        print(f"{key}={val!r}")
+
     app.run(
         host="0.0.0.0",
         port=port,
