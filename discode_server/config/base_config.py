@@ -5,9 +5,7 @@ DEBUG = False
 
 
 DATABASE_SA = os.environ.get('HEROKU_POSTGRESQL_CHARCOAL_URL')
-
-PG_BOUNCER = os.environ.get('HEROKU_POSTGRESQL_CHARCOAL_URL_PGBOUNCER')
-bits = parse.urlparse(PG_BOUNCER)
+bits = parse.urlparse(DATABASE_SA)
 
 DATABASE = {
     'user': bits.username,
