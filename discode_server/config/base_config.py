@@ -4,9 +4,10 @@ from urllib import parse
 DEBUG = False
 
 
-DATABASE_SA = os.environ.get('HEROKU_POSTGRESQL_CHARCOAL_URL_PGBOUNCER')
+DATABASE_SA = os.environ.get('HEROKU_POSTGRESQL_CHARCOAL_URL')
 
-bits = parse.urlparse(DATABASE_SA)
+PG_BOUNCER = os.environ.get('HEROKU_POSTGRESQL_CHARCOAL_URL_PGBOUNCER')
+bits = parse.urlparse(PG_BOUNCER)
 
 DATABASE = {
     'user': bits.username,
