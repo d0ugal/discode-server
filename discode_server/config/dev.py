@@ -17,7 +17,7 @@ LOGO = r"""
 
 """
 
-DEBUG = True
+DEBUG = False
 DATABASE = {
     'user': 'discode',
     'database': 'discode',

@@ -1,5 +1,6 @@
 import os
 
+import raven
 import sanic
 
 from discode_server import db
@@ -21,9 +22,15 @@ def create_app():
     app.middleware('request')(session.add_to_request)
     app.middleware('response')(session.save_session)
 
+    sentry_dsn = app.config['SENTRY_DSN']
+    sentry_client = raven.Client(sentry_dsn)
+
+    @app.exception(Exception)
+    def handle_exceptions(request, exception):
+        sentry_client.captureException()
+
     @app.listener('before_server_start')
     async def setup_connection(app, loop):
-
         app.config.DB = await db.create_engine(
             app.config.DATABASE,
             loop=loop

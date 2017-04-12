@@ -25,6 +25,7 @@ setuptools.setup(
         'websockets==3.2',
         'CommonMark==0.7.3',
         'bleach==2.0.0',
+        'raven',
 
         # Rwmove the following on the next Sanic release (and add Sanic).
         'httptools>=0.0.9',
