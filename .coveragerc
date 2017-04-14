@@ -1,0 +1,7 @@
+[run]
+branch = True
+omit = discode_server/tests/*
+
+[report]
+skip_covered = True
+sort = miss
