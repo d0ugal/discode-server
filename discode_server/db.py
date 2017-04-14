@@ -86,7 +86,6 @@ PasteNotFound = exceptions.NotFound("Paste Not Found")
 
 
 async def create_engine(db_config, loop):
-
     return await aiopg.sa.create_engine(
         **db_config,
         loop=loop

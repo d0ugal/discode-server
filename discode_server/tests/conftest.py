@@ -11,7 +11,8 @@ from discode_server import app as app_
 def app():
     os.environ['DISCODE_CONFIG'] = 'discode_server/config/test.py'
     command.upgrade(config.Config('alembic.ini'), 'head')
-    yield app_.create_app()
+    app = app_.create_app()
+    yield app
     command.downgrade(config.Config('alembic.ini'), 'base')
 
 
