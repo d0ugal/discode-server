@@ -135,17 +135,22 @@ async def get_comments(conn, paste_id):
     return [Comment(c) for c in comments]
 
 
-async def create(conn, contents, lexer):
+async def create(conn, contents, lexer, created_on=None):
     sha = hashlib.sha256(contents.encode('utf-8')).hexdigest()
 
     lexer, detected = highlight.guess(contents, lexer)
 
-    result = await conn.execute(paste.insert().values(
-        contents=contents,
-        sha=sha,
-        lexer=lexer,
-        lexer_guessed=detected
-    ))
+    values = {
+        'contents': contents,
+        'sha': sha,
+        'lexer': lexer,
+        'lexer_guessed': detected,
+    }
+
+    if created_on is not None:
+        values['created_on'] = created_on
+
+    result = await conn.execute(paste.insert().values(**values))
     record = await result.fetchone()
 
     if not record:
