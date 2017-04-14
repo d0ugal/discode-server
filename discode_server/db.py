@@ -82,7 +82,8 @@ class Comment:
         return self._record.line
 
 
-PasteNotFound = exceptions.NotFound("Paste Not Found")
+class PasteNotFound(exceptions.NotFound):
+    pass
 
 
 async def create_engine(db_config, loop):
@@ -98,7 +99,7 @@ async def get_paste(conn, paste_id):
     p = await result.first()
     comments = await get_comments(conn, paste_id)
     if not p:
-        raise PasteNotFound
+        raise PasteNotFound("Paste Not Found")
     return Paste(p, comments)
 
 
@@ -107,7 +108,7 @@ async def get_pastes(conn):
     result = await conn.execute(query)
     pastes = await result.fetchall()
     if not pastes:
-        raise PasteNotFound
+        raise PasteNotFound("Paste Not Found")
     return [Paste(r) for r in pastes]
 
 

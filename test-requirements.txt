@@ -2,4 +2,5 @@ flake8
 pytest
 coverage
 pytest-cov
+pytest-asyncio
 aiohttp
