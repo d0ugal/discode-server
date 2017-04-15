@@ -34,9 +34,6 @@ setuptools.setup(
         'aiofiles>=0.3.0',
     ],
     entry_points={
-        'pygments.lexers': [
-            'mistral = discode_server.utils.highlight:MistralLexer',
-        ],
         'console_scripts': [
             'discode-server = discode_server.__main__:cli',
         ]
