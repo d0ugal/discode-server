@@ -13,7 +13,7 @@ from discode_server import session
 def create_app():
     app = sanic.Sanic(__name__)
     app.blueprint(views.bp)
-    app.add_websocket_route(notify.feed, '/_notify')
+    app.add_websocket_route(notify.feed, '/_notify/<paste_id:[A-Za-z0-9]+>')
     app.config.from_object(base_config)
     if 'DISCODE_CONFIG' in os.environ:
         app.config.from_envvar('DISCODE_CONFIG')

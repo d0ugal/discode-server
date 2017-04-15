@@ -75,24 +75,40 @@ $(function(){
 
     var paste_id = window.location.pathname.slice(1);
     var protocol = window.location.protocol == "https:" ? "wss" : "ws";
-    var ws = protocol + '://' + document.domain + ':' + location.port + '/_notify';
+    var ws = protocol + '://' + document.domain + ':' + location.port + '/_notify/' + paste_id;
 
     var seen = [];
     var isActive;
 
-    $(window).on("focus", function () {
-      isActive = true;
-    });
+    (function(){
+        // Do we need this cruft?
+        var hidden, visibilityChange;
+        if (typeof document.hidden !== "undefined") {
+          hidden = "hidden";
+          visibilityChange = "visibilitychange";
+        } else if (typeof document.mozHidden !== "undefined") {
+          hidden = "mozHidden";
+          visibilityChange = "mozvisibilitychange";
+        } else if (typeof document.webkitHidden !== "undefined") {
+          hidden = "webkitHidden";
+          visibilityChange = "webkitvisibilitychange";
+        }
 
-    $(window).on("blur", function () {
-      isActive = false;
-    });
+        function handleVisibilityChange() {
+            if (document[hidden]) {
+                isActive = false;
+            } else {
+                isActive = true;
+            }
+        }
+        handleVisibilityChange()
+        document.addEventListener(visibilityChange, handleVisibilityChange, false);
+    })();
 
     if (paste_id && !paste_id.startsWith("_")){
         var notifySocket = new ReconnectingWebSocket(ws);
         notifySocket.onmessage = function (event) {
             var data = JSON.parse(event.data);
-            if (data.paste_id != paste_id) return;
 
             if (seen.indexOf(data.comment_id) > -1) return;
             seen.push(data.comment_id);
@@ -104,7 +120,7 @@ $(function(){
                 $("#L" + data.lineno).closest('tr').after($(data.html));
             }
 
-            if (!isActive) new Notification("New comment on paste " + paste_id);
+            if (!isActive) new Notification("New comment on paste " + data.paste_id);
         }
     }
 

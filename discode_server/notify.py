@@ -3,16 +3,19 @@ import json
 
 from discode_server import db
 from discode_server import fragments
+from discode_server.utils import baseconv
 
 connected = set()
 notified = set()
 
 
-async def feed(request, ws):
+async def feed(request, ws, paste_id):
 
-    global connected
+    global connected, notified
+
     connected.add(ws)
     print("Open WebSockets: ", len(connected))
+    paste_id = baseconv.base36.to_decimal(paste_id)
 
     try:
         while True:
@@ -35,8 +38,13 @@ async def feed(request, ws):
                     continue
                 notified.add(fingerprint)
 
-                paste_id, lineno, comment_id = msg.payload.split(',')
-                paste = await db.get_paste(conn, int(paste_id))
+                p_id, lineno, comment_id = msg.payload.split(',')
+                p_id = int(p_id)
+
+                if paste_id != p_id:
+                    continue
+
+                paste = await db.get_paste(conn, int(p_id))
                 html = fragments.comment_row(lineno,
                                              paste.comments[int(lineno)])
                 data = json.dumps({
