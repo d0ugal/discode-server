@@ -22,7 +22,7 @@ setuptools.setup(
         'alembic==0.9.1',
         'click==6.7',
         'limits==1.2.1',
-        'websockets==3.3',
+        'websockets==3.2',
         'CommonMark==0.7.3',
         'bleach==2.0.0',
         'raven',
