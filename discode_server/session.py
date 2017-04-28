@@ -67,6 +67,7 @@ async def save_session(request, response):
     sesh_id = sesh['id']
 
     if set(sesh.keys()) == set(("id", )):
+        return
         async with request.app.config.DB.acquire() as conn:
             await conn.execute(session.delete().where(session.c.id == sesh_id))
         # delete cookie
