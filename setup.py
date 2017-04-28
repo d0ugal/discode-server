@@ -14,7 +14,7 @@ setuptools.setup(
     include_package_date=True,
     zip_safe=False,
     install_requires=[
-        'Jinja2==2.9.6',
+        'Jinja2==2.9.5',
         'Pygments==2.2.0',
         'SQLAlchemy==1.1.6',
         'WTForms==2.1',
