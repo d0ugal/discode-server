@@ -14,18 +14,18 @@ setuptools.setup(
     include_package_date=True,
     zip_safe=False,
     install_requires=[
-        'Jinja2',
+        'Jinja2==2.9.6',
         'Pygments==2.2.0',
-        'SQLAlchemy',
+        'SQLAlchemy==1.0.17',
         'WTForms==2.1',
         'aiopg==0.13.0',
         'alembic==0.9.1',
         'click==6.7',
         'limits==1.2.1',
-        'websockets',
+        'websockets==3.3',
         'CommonMark==0.7.3',
         'bleach==2.0.0',
-        'raven',
+        'raven==6.0.0',
 
         # Rwmove the following on the next Sanic release (and add Sanic).
         'httptools>=0.0.9',

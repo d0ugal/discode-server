@@ -1,5 +1,1 @@
 -e .
-
-# Extra requirements that we only install because we want their pygments Lexer
-# Use a released Mistral when it a new release includes the lexer
--e git://github.com/openstack/mistral.git#egg=mistral
