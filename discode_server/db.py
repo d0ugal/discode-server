@@ -113,11 +113,13 @@ async def get_pastes(conn):
 
 
 async def delete_expired(conn):
-    log.info("Deleteing expired pastes")
-    days = 30
-    delete_after = datetime.datetime.utcnow() - datetime.timedelta(days=days)
-    return
-    await conn.execute(paste.delete().where(paste.c.created_on < delete_after))
+    try:
+        log.info("Deleteing expired pastes")
+        days = 30
+        delete_after = datetime.datetime.utcnow() - datetime.timedelta(days=days)
+        await conn.execute(paste.delete().where(paste.c.created_on < delete_after))
+    except:
+        log.exception()
 
 
 async def create_comment(conn, paste_id, line, contents):
