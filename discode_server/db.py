@@ -116,6 +116,7 @@ async def delete_expired(conn):
     log.info("Deleteing expired pastes")
     days = 30
     delete_after = datetime.datetime.utcnow() - datetime.timedelta(days=days)
+    return
     await conn.execute(paste.delete().where(paste.c.created_on < delete_after))
 
 
