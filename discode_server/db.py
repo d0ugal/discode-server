@@ -119,7 +119,7 @@ async def delete_expired(conn):
         delete_after = datetime.datetime.utcnow() - datetime.timedelta(days=days)
         await conn.execute(paste.delete().where(paste.c.created_on < delete_after))
     except:
-        log.exception()
+        log.exception("Failed to delete expired pastes")
 
 
 async def create_comment(conn, paste_id, line, contents):
