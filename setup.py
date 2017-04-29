@@ -16,7 +16,7 @@ setuptools.setup(
     install_requires=[
         'Jinja2==2.9.6',
         'Pygments==2.2.0',
-        'SQLAlchemy==1.0.17',
+        'SQLAlchemy==1.1.9',
         'WTForms==2.1',
         'aiopg==0.13.0',
         'alembic==0.9.1',
