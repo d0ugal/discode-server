@@ -75,4 +75,4 @@ class MistralLexer(lexer.RegexLexer):
             score += 0.2
         if 'on-complete:' in text:
             score += 0.2
-          return score
+        return score
