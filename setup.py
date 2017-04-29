@@ -25,7 +25,7 @@ setuptools.setup(
             'discode-server = discode_server.__main__:cli',
         ],
         'pygments.lexers': [
-            'mistral = discode_server.lexers.mistral.MistralLexer',
+            'mistral = discode_server.lexers.mistral:MistralLexer',
         ]
     },
     classifier=[
