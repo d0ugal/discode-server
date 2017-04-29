@@ -23,6 +23,9 @@ setuptools.setup(
     entry_points={
         'console_scripts': [
             'discode-server = discode_server.__main__:cli',
+        ],
+        'pygments.lexers': [
+            'mistral = discode_server.lexers.mistral.MistralLexer',
         ]
     },
     classifier=[
