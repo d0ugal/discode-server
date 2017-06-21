@@ -13,13 +13,6 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_date=True,
     zip_safe=False,
-    install_requires=[
-        # Rwmove the following on the next Sanic release (and add Sanic).
-        'httptools>=0.0.9',
-        'uvloop>=0.5.3',
-        'ujson>=1.35',
-        'aiofiles>=0.3.0',
-    ],
     entry_points={
         'console_scripts': [
             'discode-server = discode_server.__main__:cli',

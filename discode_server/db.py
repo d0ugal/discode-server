@@ -26,8 +26,8 @@ paste = sa.Table(
 comment = sa.Table(
     'comments', meta,
     sa.Column('id', sa.Integer, primary_key=True),
-    sa.Column('paste_id', sa.Integer, sa.ForeignKey("pastes.id", ondelete="CASCADE"),
-              nullable=False),
+    sa.Column('paste_id', sa.Integer,
+              sa.ForeignKey("pastes.id", ondelete="CASCADE"), nullable=False),
     sa.Column('line', sa.Integer, nullable=False),
     sa.Column('contents', sa.Text(), nullable=False),
     sa.Column('created_on', sa.DateTime, default=datetime.datetime.utcnow),
@@ -116,8 +116,10 @@ async def delete_expired(conn):
     try:
         log.info("Deleteing expired pastes")
         days = 30
-        delete_after = datetime.datetime.utcnow() - datetime.timedelta(days=days)
-        await conn.execute(paste.delete().where(paste.c.created_on < delete_after))
+        utcnow = datetime.datetime.utcnow()
+        delete_after = utcnow - datetime.timedelta(days=days)
+        await conn.execute(paste.delete().where(
+            paste.c.created_on < delete_after))
     except:
         log.exception("Failed to delete expired pastes")
 
