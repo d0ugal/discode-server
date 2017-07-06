@@ -3,7 +3,7 @@ Pygments==2.2.0
 SQLAlchemy==1.1.11
 WTForms==2.1
 aiopg==0.13.0
-alembic==0.9.2
+alembic==0.9.3
 click==6.7
 limits==1.2.1
 websockets==3.3
