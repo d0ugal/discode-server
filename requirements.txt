@@ -10,4 +10,4 @@ websockets==3.3
 CommonMark==0.7.3
 bleach==2.0.0
 raven==6.1.0
-Sanic==0.5.4
+Sanic==0.6.0
