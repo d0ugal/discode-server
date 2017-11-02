@@ -6,7 +6,7 @@ aiopg==0.13.1
 alembic==0.9.6
 click==6.7
 limits==1.2.1
-websockets==3.4
+websockets==4.0
 CommonMark==0.7.4
 bleach==2.1.1
 raven==6.3.0
