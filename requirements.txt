@@ -9,5 +9,5 @@ limits==1.2.1
 websockets==4.0.1
 CommonMark==0.7.4
 bleach==2.1.2
-raven==6.3.0
+raven==6.4.0
 Sanic==0.7.0
