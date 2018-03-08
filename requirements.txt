@@ -1,6 +1,6 @@
 Jinja2==2.10
 Pygments==2.2.0
-SQLAlchemy==1.2.4
+SQLAlchemy==1.2.5
 WTForms==2.1
 aiopg==0.13.2
 alembic==0.9.8
