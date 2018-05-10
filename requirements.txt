@@ -2,7 +2,7 @@ Jinja2==2.10
 Pygments==2.2.0
 SQLAlchemy==1.2.7
 WTForms==2.1
-aiopg==0.13.2
+aiopg==0.14.0
 alembic==0.9.9
 click==6.7
 limits==1.3
